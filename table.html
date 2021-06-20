@@ -1,0 +1,73 @@
+<div class="tab" id="tblEmployee"></div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="tab" id="tblEmployee"> </div>
+</body>
+<script>
+    
+    var jsonDataEmployee = [
+            {
+                "EmployeeID": "5",
+                "EmployeeName": "Sartaj Husain",
+                "EmployeeCode": "EC0001"
+
+            },
+            {
+                "EmployeeID": "2",
+                "EmployeeName": "Bil Gates ",
+                "EmployeeCode": "EC0002"
+
+            },
+            {
+                "EmployeeID": "4",
+                "EmployeeName": "Mark Zuckerberg",
+                "EmployeeCode": "EC0003"
+            }
+     ]
+
+     window.onload = JSONToHTMLTable(jsonDataEmployee, "tblEmployee");
+
+     function JSONToHTMLTable(jsonData, elementToBind) {
+       
+         var col = [];
+         for (var i = 0; i < jsonData.length; i++) {
+             for (var key in jsonData[i]) {
+                 if (col.indexOf(key) === -1) {
+                     col.push(key);
+                 }
+             }
+         }
+
+         var table = document.createElement("table");
+
+         var tr = table.insertRow(-1);
+
+         for (var i = 0; i < col.length; i++) {
+             var th = document.createElement("th");
+             th.innerHTML = col[i];
+             tr.appendChild(th);
+         }
+
+         for (var i = 0; i < jsonData.length; i++) {
+
+             tr = table.insertRow(-1);
+
+             for (var j = 0; j < col.length; j++) {
+                 var tabCell = tr.insertCell(-1);
+                 tabCell.innerHTML = jsonData[i][col[j]];
+             }
+         }
+
+         var divContainer = document.getElementById(elementToBind);
+         divContainer.innerHTML = "";
+         divContainer.appendChild(table);
+     }
+</script>
+</html>
